@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "355183523182",
+    "project_id": "vendor-discover-7346a",
+    "storage_bucket": "vendor-discover-7346a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:355183523182:android:38a0c4a1a98b0a68247d7f",
+        "android_client_info": {
+          "package_name": "com.example.vendors_discover"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW9XMVtYO0iFCiEM_R3wBwf6USvAkuWw8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
