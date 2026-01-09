@@ -28,6 +28,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           Text(widget.labelText),
           SizedBox(height: 5),
           TextField(
+            controller: widget.controller,
             obscureText: isObsecureText && widget.isPassword,
             decoration: InputDecoration(
               filled: true,

@@ -72,4 +72,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'vendor-discover-7346a.firebasestorage.app',
     iosBundleId: 'com.example.vendorsDiscover',
   );
+
 }

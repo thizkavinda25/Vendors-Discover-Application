@@ -18,12 +18,12 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Consumer<AuthStateProvider>(
-            builder: (context, authProvider, child) {
-              return Column(
+      body: Consumer<AuthStateProvider>(
+        builder: (context, authProvider, child) {
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -97,7 +97,17 @@ class _AuthScreenState extends State<AuthScreen> {
                         : authScreenType == 'signin'
                         ? 'Login'
                         : 'Send',
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+                        if (authScreenType == 'signup') {
+                          authProvider.signUp(context);
+                        } else if (authScreenType == 'signin') {
+                          //sign in
+                        } else {
+                          //forgot
+                        }
+                      });
+                    },
                   ),
                   SizedBox(height: 15),
                   if (authScreenType != 'forgot')
@@ -106,7 +116,6 @@ class _AuthScreenState extends State<AuthScreen> {
                         authScreenType != 'signin'
                             ? 'Already have an account?'
                             : "Don't have an account?",
-
                         style: TextStyle(color: Colors.grey.shade600),
                       ),
                     ),
@@ -129,10 +138,10 @@ class _AuthScreenState extends State<AuthScreen> {
                     },
                   ),
                 ],
-              );
-            },
-          ),
-        ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
