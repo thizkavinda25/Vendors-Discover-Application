@@ -59,6 +59,11 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                   ),
                   SizedBox(height: 40),
+                  if (authScreenType == 'signup')
+                    CustomTextField(
+                      labelText: 'Name',
+                      controller: authProvider.nameController,
+                    ),
                   CustomTextField(
                     labelText: 'Email Address',
                     controller: authProvider.emailController,
@@ -102,7 +107,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         if (authScreenType == 'signup') {
                           authProvider.signUp(context);
                         } else if (authScreenType == 'signin') {
-                          //sign in
+                          authProvider.signIn(context);
                         } else {
                           //forgot
                         }
