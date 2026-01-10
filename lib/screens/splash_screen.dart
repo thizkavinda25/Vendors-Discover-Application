@@ -17,16 +17,16 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(
-      Duration(seconds: 3),
-      () => FirebaseAuth.instance.authStateChanges().listen((user) {
-        if (user == null) {
-          NavigatorManage.goTo(context, AuthScreen());
-        } else {
-          NavigatorManage.goTo(context, HomeScree());
-        }
-      }),
-    );
+    if (FirebaseAuth.instance.currentUser == null) {
+      Timer(const Duration(seconds: 2), () {
+        NavigatorManage.goPushReplace(context, const AuthScreen());
+      });
+    } else {
+      Timer(const Duration(seconds: 0), () {
+        NavigatorManage.goPushReplace(context, const HomeScree());
+      });
+    }
+    
   }
 
   @override

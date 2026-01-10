@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:logger/logger.dart';
+import 'package:vendors_discover/screens/auth_screen.dart';
 import 'package:vendors_discover/utils/custom_dialogs.dart';
+import 'package:vendors_discover/utils/navigator_manage.dart';
 
 class AuthController {
   Future<User?> createUserAccount({
@@ -50,7 +52,8 @@ class AuthController {
     return null;
   }
 
-  Future<void> signOut() async {
+  Future<void> signOut(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
+    NavigatorManage.goPushReplace(context, AuthScreen());
   }
 }

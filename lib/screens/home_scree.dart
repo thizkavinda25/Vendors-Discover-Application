@@ -20,7 +20,7 @@ class _HomeScreeState extends State<HomeScree> {
             const Text('Welcome to the Home Screen!'),
             IconButton(
               onPressed: () {
-                AuthController().signOut();
+                AuthController().signOut(context);
               },
               icon: const Icon(Icons.login, size: 30),
             ),
