@@ -61,15 +61,15 @@ class AuthStateProvider extends ChangeNotifier {
         uid: user.uid,
       );
       final isSuccess = await UserController().saveUserData(userModel);
-      EasyLoading.dismiss();
-      _nameController.clear();
-      _emailController.clear();
-      _passwordController.clear();
-      _confirmPasswordController.clear();
       if (isSuccess) {
         NavigatorManage.goPushReplace(context, const HomeScree());
       }
     }
+    EasyLoading.dismiss();
+    _nameController.clear();
+    _emailController.clear();
+    _passwordController.clear();
+    _confirmPasswordController.clear();
   }
 
   Future<void> signIn(BuildContext context) async {
@@ -93,10 +93,43 @@ class AuthStateProvider extends ChangeNotifier {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-
+      NavigatorManage.goPushReplace(context, const HomeScree());
       EasyLoading.dismiss();
       _emailController.clear();
       _passwordController.clear();
+    }
+  }
+
+  Future<void> resetPasswordLink(BuildContext context) async {
+    if (_emailController.text.trim().isEmpty) {
+      CustomDialogs.showErrorSnackBar(
+        context,
+        'Please enter the email address',
+      );
+    } else if (RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(_emailController.text) ==
+        false) {
+      CustomDialogs.showErrorSnackBar(context, 'Invalid Email Address');
+    } else {
+      EasyLoading.show(status: 'Sending');
+      try {
+        await Future.delayed(const Duration(milliseconds: 300));
+        await AuthController().resetPassword(
+          email: _emailController.text.trim(),
+        );
+
+        if (context.mounted) {
+          CustomDialogs.showSuccessSnackBar(
+            context,
+            'Reset link sent. check your inbox',
+          );
+        }
+
+        _emailController.clear();
+      } catch (e) {
+        EasyLoading.showError('Something went wrong');
+      } finally {
+        EasyLoading.dismiss();
+      }
     }
   }
 }

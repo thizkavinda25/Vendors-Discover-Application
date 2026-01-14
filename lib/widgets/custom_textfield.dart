@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
-  final String labelText;
+  final String hintText;
   final TextEditingController? controller;
   final bool isPassword;
-
+  final Icon? icon;
   const CustomTextField({
     super.key,
-    required this.labelText,
+    required this.hintText,
     this.controller,
     this.isPassword = false,
+    this.icon,
   });
 
   @override
@@ -21,40 +22,36 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(widget.labelText),
-          SizedBox(height: 5),
-          TextField(
-            controller: widget.controller,
-            obscureText: isObsecureText && widget.isPassword,
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Colors.grey.shade200,
-              border: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              suffixIcon: widget.isPassword
-                  ? IconButton(
-                      onPressed: () {
-                        setState(() {
-                          isObsecureText = !isObsecureText;
-                        });
-                      },
-                      icon: isObsecureText
-                          ? Icon(Icons.visibility, color: Colors.grey.shade600)
-                          : Icon(
-                              Icons.visibility_off_outlined,
-                              color: Colors.grey.shade600,
-                            ),
-                    )
-                  : null,
-            ),
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: TextField(
+        style: TextStyle(fontSize: 14),
+        controller: widget.controller,
+        obscureText: isObsecureText && widget.isPassword,
+        decoration: InputDecoration(
+          hint: Text(
+            widget.hintText,
+            style: TextStyle(color: Colors.grey.shade500),
           ),
-        ],
+          filled: true,
+          fillColor: Colors.grey.shade200,
+          border: OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          prefixIcon: widget.icon,
+          suffixIcon: widget.isPassword
+              ? IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isObsecureText = !isObsecureText;
+                    });
+                  },
+                  icon: isObsecureText
+                      ? Icon(Icons.visibility_off, color: Colors.grey.shade500)
+                      : Icon(Icons.visibility, color: Colors.grey.shade500),
+                )
+              : null,
+        ),
       ),
     );
   }

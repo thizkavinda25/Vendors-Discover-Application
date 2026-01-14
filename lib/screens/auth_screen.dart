@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vendors_discover/providers/auth_state_provider.dart';
@@ -36,7 +37,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         size: 40,
                       ),
                       Text(
-                        'Vendor Discover',
+                        'Vendo Go',
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
@@ -44,7 +45,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 5),
+                  SizedBox(height: 10),
                   Center(
                     child: Text(
                       authScreenType == 'signup'
@@ -53,7 +54,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           ? 'Login to your account'
                           : 'Enter your email to reset your password',
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 14,
                         color: Colors.grey.shade700,
                       ),
                     ),
@@ -61,22 +62,35 @@ class _AuthScreenState extends State<AuthScreen> {
                   SizedBox(height: 40),
                   if (authScreenType == 'signup')
                     CustomTextField(
-                      labelText: 'Name',
+                      hintText: 'Name',
+                      icon: Icon(Icons.person, color: Colors.grey.shade500),
                       controller: authProvider.nameController,
                     ),
                   CustomTextField(
-                    labelText: 'Email Address',
+                    hintText: 'Email Address',
+                    icon: Icon(
+                      CupertinoIcons.mail_solid,
+                      color: Colors.grey.shade500,
+                    ),
                     controller: authProvider.emailController,
                   ),
                   if (authScreenType != 'forgot')
                     CustomTextField(
-                      labelText: 'Password',
+                      hintText: 'Password',
+                      icon: Icon(
+                        CupertinoIcons.padlock_solid,
+                        color: Colors.grey.shade500,
+                      ),
                       isPassword: true,
                       controller: authProvider.passwordController,
                     ),
                   if (authScreenType == 'signup')
                     CustomTextField(
-                      labelText: 'Confirm Password',
+                      hintText: 'Confirm Password',
+                      icon: Icon(
+                        CupertinoIcons.padlock_solid,
+                        color: Colors.grey.shade500,
+                      ),
                       isPassword: true,
                       controller: authProvider.confirmPasswordController,
                     ),
@@ -91,7 +105,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         },
                         child: Text(
                           'Forgot Password?',
-                          style: TextStyle(color: Colors.grey.shade600),
+                          style: TextStyle(color: Colors.pink),
                         ),
                       ),
                     ),
@@ -109,21 +123,13 @@ class _AuthScreenState extends State<AuthScreen> {
                         } else if (authScreenType == 'signin') {
                           authProvider.signIn(context);
                         } else {
-                          //forgot
+                          authProvider.resetPasswordLink(context);
                         }
                       });
                     },
                   ),
                   SizedBox(height: 15),
-                  if (authScreenType != 'forgot')
-                    Center(
-                      child: Text(
-                        authScreenType != 'signin'
-                            ? 'Already have an account?'
-                            : "Don't have an account?",
-                        style: TextStyle(color: Colors.grey.shade600),
-                      ),
-                    ),
+                  _orDivider(authScreenType),
                   SizedBox(height: 15),
                   CustomButton(
                     text: authScreenType == 'signup'
@@ -150,4 +156,24 @@ class _AuthScreenState extends State<AuthScreen> {
       ),
     );
   }
+}
+
+Widget _orDivider(String authScreenType) {
+  return Row(
+    children: [
+      Expanded(child: Divider(color: Colors.grey.shade300, thickness: 1)),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 7),
+        child: Text(
+          authScreenType == 'signup'
+              ? 'Already have an account?'
+              : authScreenType == 'signin'
+              ? 'Don\'t have an account?'
+              : 'Remember Me?',
+          style: TextStyle(color: Colors.grey.shade500),
+        ),
+      ),
+      Expanded(child: Divider(color: Colors.grey.shade300, thickness: 1)),
+    ],
+  );
 }
