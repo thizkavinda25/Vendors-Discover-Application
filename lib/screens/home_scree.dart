@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vendors_discover/controllers/auth_controller.dart';
+import 'package:vendors_discover/widgets/custom_card.dart';
 
-import '../models/vendor_model.dart';
 import '../providers/vendor_state_provider.dart';
+import '../widgets/category_row.dart';
 
 class HomeScree extends StatefulWidget {
   const HomeScree({super.key});
@@ -12,17 +14,18 @@ class HomeScree extends StatefulWidget {
 }
 
 class _HomeScreeState extends State<HomeScree> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   Future.microtask(() {
-  //     context.read<VendorStateProvider>().fetchVendors();
-  //   });
-  // }
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      context.read<VendorStateProvider>().fetchVendors();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: _bottomNavBar(),
       backgroundColor: Colors.white,
       drawer: Drawer(),
       appBar: AppBar(
@@ -30,8 +33,10 @@ class _HomeScreeState extends State<HomeScree> {
           Padding(
             padding: const EdgeInsets.only(right: 10),
             child: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.notifications_active),
+              onPressed: () {
+                AuthController().signOut(context);
+              },
+              icon: Icon(Icons.logout_sharp),
             ),
           ),
         ],
@@ -48,22 +53,80 @@ class _HomeScreeState extends State<HomeScree> {
       ),
       body: Consumer<VendorStateProvider>(
         builder: (context, vendorProvider, child) {
-          // if (vendorProvider.isLoading) {
-          //   return const Center(child: CircularProgressIndicator());
-          // }
-          // if (vendorProvider.vendors.isEmpty) {
-          //   return const Center(child: Text('No vendor found'));
-          // }
-          // int length = vendorProvider.vendors.length;
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Column(children: [
-                
-              ],
+          if (vendorProvider.isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (vendorProvider.vendors.isEmpty) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text.rich(
+                    TextSpan(
+                      text: 'Hello, Thisara',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: '\nwhat are you looking for?',
+                          style: TextStyle(
+                            color: Colors.grey.shade700,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 15),
+
+                  SizedBox(height: 20),
+                  CategoryRow(categoryName: 'Photographers', onPressed: () {}),
+                  CustomCard(
+                    vendorProvider: vendorProvider,
+                    categoryId: 'photo',
+                  ),
+                  SizedBox(height: 20),
+                  CategoryRow(
+                    categoryName: 'Food & Beverage',
+                    onPressed: () {},
+                  ),
+                  CustomCard(
+                    vendorProvider: vendorProvider,
+                    categoryId: 'food',
+                  ),
+                ],
+              ),
             ),
           );
         },
       ),
     );
   }
+}
+
+Widget _bottomNavBar() {
+  return BottomAppBar(
+    color: Colors.white,
+    elevation: 8,
+    child: Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Icon(Icons.home_filled, size: 30, color: Colors.pink),
+          Icon(Icons.search, size: 30, color: Colors.grey),
+          Icon(Icons.favorite_border, size: 30, color: Colors.grey),
+          Icon(Icons.person_outline, size: 30, color: Colors.grey),
+        ],
+      ),
+    ),
+  );
 }
