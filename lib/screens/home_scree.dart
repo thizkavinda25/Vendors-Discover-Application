@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vendors_discover/controllers/auth_controller.dart';
 import 'package:vendors_discover/widgets/custom_card.dart';
 
 import '../providers/vendor_state_provider.dart';
@@ -29,17 +28,6 @@ class _HomeScreeState extends State<HomeScree> {
       backgroundColor: Colors.white,
       drawer: Drawer(),
       appBar: AppBar(
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: IconButton(
-              onPressed: () {
-                AuthController().signOut(context);
-              },
-              icon: Icon(Icons.logout_sharp),
-            ),
-          ),
-        ],
         iconTheme: IconThemeData(size: 30),
         backgroundColor: Colors.white,
         centerTitle: true,
@@ -101,6 +89,7 @@ class _HomeScreeState extends State<HomeScree> {
                   CustomCard(
                     vendorProvider: vendorProvider,
                     categoryId: 'food',
+                    
                   ),
                 ],
               ),

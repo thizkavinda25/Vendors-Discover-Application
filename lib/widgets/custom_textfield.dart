@@ -23,34 +23,41 @@ class _CustomTextFieldState extends State<CustomTextField> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
-      child: TextField(
-        style: TextStyle(fontSize: 14),
-        controller: widget.controller,
-        obscureText: isObsecureText && widget.isPassword,
-        decoration: InputDecoration(
-          hint: Text(
-            widget.hintText,
-            style: TextStyle(color: Colors.grey.shade500),
+      child: SizedBox(
+        height: 42,
+        child: TextField(
+          style: TextStyle(fontSize: 14),
+          controller: widget.controller,
+          obscureText: isObsecureText && widget.isPassword,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.symmetric(vertical: 10),
+            hint: Text(
+              widget.hintText,
+              style: TextStyle(color: Colors.grey.shade500),
+            ),
+            filled: true,
+            fillColor: Colors.grey.shade200,
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            prefixIcon: widget.icon,
+            suffixIcon: widget.isPassword
+                ? IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isObsecureText = !isObsecureText;
+                      });
+                    },
+                    icon: isObsecureText
+                        ? Icon(
+                            Icons.visibility_off,
+                            color: Colors.grey.shade500,
+                          )
+                        : Icon(Icons.visibility, color: Colors.grey.shade500),
+                  )
+                : null,
           ),
-          filled: true,
-          fillColor: Colors.grey.shade200,
-          border: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          prefixIcon: widget.icon,
-          suffixIcon: widget.isPassword
-              ? IconButton(
-                  onPressed: () {
-                    setState(() {
-                      isObsecureText = !isObsecureText;
-                    });
-                  },
-                  icon: isObsecureText
-                      ? Icon(Icons.visibility_off, color: Colors.grey.shade500)
-                      : Icon(Icons.visibility, color: Colors.grey.shade500),
-                )
-              : null,
         ),
       ),
     );

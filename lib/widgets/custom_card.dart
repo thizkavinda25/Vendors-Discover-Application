@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vendors_discover/providers/vendor_state_provider.dart';
+import 'package:vendors_discover/screens/vendor_details.dart';
+import 'package:vendors_discover/utils/navigator_manage.dart';
 
 class CustomCard extends StatefulWidget {
   final VendorStateProvider vendorProvider;
@@ -82,7 +84,9 @@ class _CustomCardState extends State<CustomCard> {
                       Text(vendorData.rating.toString()),
                       Spacer(),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          NavigatorManage.goTo(context, VendorDetails(vendorModel: vendorData,));
+                        },
                         child: CircleAvatar(
                           backgroundColor: Colors.pinkAccent,
                           child: Icon(Icons.add, color: Colors.white),

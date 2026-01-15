@@ -22,7 +22,7 @@ class _CustomButtonState extends State<CustomButton> {
       onTap: widget.onTap,
       child: Container(
         width: double.infinity,
-        padding: EdgeInsets.symmetric(vertical: 12),
+        padding: EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
           border: Border.all(
             width: widget.isOutlineBorder ? 1 : 0,
