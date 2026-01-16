@@ -87,16 +87,18 @@ class AuthStateProvider extends ChangeNotifier {
       );
     } else {
       EasyLoading.show();
-
-      await AuthController().signIn(
+      final user = await AuthController().signIn(
         context: context,
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-      NavigatorManage.goPushReplace(context, const HomeScree());
-      EasyLoading.dismiss();
       _emailController.clear();
       _passwordController.clear();
+      if (user != null) {
+        NavigatorManage.goPushReplace(context, const HomeScree());
+      }
+
+      EasyLoading.dismiss();
     }
   }
 

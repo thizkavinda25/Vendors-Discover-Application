@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vendors_discover/models/vendor_model.dart';
+import 'package:vendors_discover/utils/navigator_manage.dart';
 
 class VendorDetails extends StatefulWidget {
   final VendorModel vendorModel;
@@ -29,9 +30,9 @@ class _VendorDetailsState extends State<VendorDetails> {
             ),
             child: Stack(
               children: [
-                _topRowButtons(context),
                 _backgroundOverlay(),
-                _vendorInfoCover(widget),
+                _topRowButtons(context),
+                _vendorInfoCover(widget.vendorModel),
               ],
             ),
           ),
@@ -52,8 +53,10 @@ Widget _topRowButtons(BuildContext context) {
           child: CircleAvatar(
             backgroundColor: Colors.black.withOpacity(0.5),
             child: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () {
+                NavigatorManage.popContext(context);
+              },
+              icon: Icon(Icons.arrow_back, color: Colors.white),
             ),
           ),
         ),
@@ -83,7 +86,7 @@ Widget _backgroundOverlay() {
   );
 }
 
-Widget _vendorInfoCover(dynamic widget) {
+Widget _vendorInfoCover(VendorModel vendor) {
   return Align(
     alignment: Alignment.bottomCenter,
     child: Padding(
@@ -100,7 +103,7 @@ Widget _vendorInfoCover(dynamic widget) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              widget.vendorModel.name,
+              vendor.name,
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -108,7 +111,7 @@ Widget _vendorInfoCover(dynamic widget) {
               ),
             ),
             Text(
-              widget.vendorModel.categoryName,
+              vendor.categoryName,
               style: TextStyle(color: Colors.grey.shade200, fontSize: 12),
             ),
             Row(
@@ -120,7 +123,7 @@ Widget _vendorInfoCover(dynamic widget) {
                 ),
                 SizedBox(width: 3),
                 Text(
-                  widget.vendorModel.rating.toString(),
+                  vendor.rating.toString(),
                   style: TextStyle(fontSize: 12, color: Colors.grey.shade300),
                 ),
               ],
@@ -130,7 +133,7 @@ Widget _vendorInfoCover(dynamic widget) {
                 Icon(Icons.location_on, color: Colors.white, size: 16),
                 SizedBox(width: 3),
                 Text(
-                  widget.vendorModel.city,
+                  vendor.city,
                   style: TextStyle(color: Colors.grey.shade300, fontSize: 13),
                 ),
               ],

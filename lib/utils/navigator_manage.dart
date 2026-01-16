@@ -11,4 +11,8 @@ class NavigatorManage {
       MaterialPageRoute(builder: (context) => widget),
     );
   }
+
+  static void popContext(BuildContext context) {
+    Navigator.pop(context);
+  }
 }
