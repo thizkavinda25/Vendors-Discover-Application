@@ -74,7 +74,6 @@ class _HomeScreeState extends State<HomeScree> {
                     ),
                   ),
                   SizedBox(height: 15),
-
                   SizedBox(height: 20),
                   CategoryRow(categoryName: 'Photographers', onPressed: () {}),
                   CustomCard(
@@ -89,7 +88,12 @@ class _HomeScreeState extends State<HomeScree> {
                   CustomCard(
                     vendorProvider: vendorProvider,
                     categoryId: 'food',
-                    
+                  ),
+                  SizedBox(height: 20),
+                  CategoryRow(categoryName: 'Wholesalers', onPressed: () {}),
+                  CustomCard(
+                    vendorProvider: vendorProvider,
+                    categoryId: 'wholesaler',
                   ),
                 ],
               ),

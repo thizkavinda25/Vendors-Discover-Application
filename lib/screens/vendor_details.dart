@@ -52,10 +52,8 @@ Widget _topRowButtons(BuildContext context) {
           child: CircleAvatar(
             backgroundColor: Colors.black.withOpacity(0.5),
             child: IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () {
-                Navigator.pop(context);
-              },
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () => Navigator.pop(context),
             ),
           ),
         ),
