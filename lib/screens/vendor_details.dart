@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show DateFormat;
+import 'package:provider/provider.dart';
 import 'package:vendors_discover/models/vendor_model.dart';
+import 'package:vendors_discover/providers/user_state_provider.dart';
+import 'package:vendors_discover/utils/custom_dialogs.dart';
 import 'package:vendors_discover/utils/navigator_manage.dart';
 
 class VendorDetails extends StatefulWidget {
@@ -37,7 +40,7 @@ class _VendorDetailsState extends State<VendorDetails> {
               child: Stack(
                 children: [
                   _backgroundOverlay(),
-                  SafeArea(child: _topRowButtons(context)),
+                  SafeArea(child: _topRowButtons(context, widget.vendorModel)),
                   _vendorInfoCover(widget.vendorModel),
                 ],
               ),
@@ -81,7 +84,7 @@ class _VendorDetailsState extends State<VendorDetails> {
   }
 }
 
-Widget _topRowButtons(BuildContext context) {
+Widget _topRowButtons(BuildContext context, VendorModel vendor) {
   return Align(
     alignment: Alignment.topCenter,
     child: Padding(
@@ -99,11 +102,23 @@ Widget _topRowButtons(BuildContext context) {
               icon: Icon(Icons.arrow_back, color: Colors.white),
             ),
           ),
+
           CircleAvatar(
             backgroundColor: Colors.black.withOpacity(0.5),
             child: IconButton(
               icon: Icon(Icons.favorite_border, color: Colors.white),
-              onPressed: () {},
+              onPressed: () {
+                final data = <String, dynamic>{
+                  'profileImg': vendor.imageUrl,
+                  'name': vendor.name,
+                  'category': vendor.categoryName,
+                };
+                context.read<UserStateProvider>().addToFavorite(data);
+                CustomDialogs.showSuccessSnackBar(
+                  context,
+                  'Added to Favorites',
+                );
+              },
             ),
           ),
         ],

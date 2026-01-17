@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:vendors_discover/providers/user_state_provider.dart';
 import 'package:vendors_discover/screens/splash_screen.dart';
 
 import 'firebase_options.dart';
@@ -24,10 +25,9 @@ void main() async {
             return provider;
           },
         ),
+        ChangeNotifierProvider(create: (context) => UserStateProvider()),
       ],
-      child: DevicePreview(
-        enabled: true,
-        builder: (context)=> const MyApp()),
+      child: DevicePreview(enabled: true, builder: (context) => const MyApp()),
     ),
   );
 }

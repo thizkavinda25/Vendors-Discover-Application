@@ -34,20 +34,17 @@ class _BottomNavBarState extends State<BottomNavBar> {
         data: ThemeData().copyWith(
           iconTheme: IconThemeData(color: Colors.white),
         ),
-        child: SafeArea(
-          top: false,
-          child: CurvedNavigationBar(
-            index: index,
-            items: items,
-            height: 60,
-            animationDuration: Duration(milliseconds: 200),
-            backgroundColor: Colors.transparent,
-            buttonBackgroundColor: Colors.pink,
-            color: Colors.black,
-            onTap: (index) => setState(() {
-              this.index = index;
-            }),
-          ),
+        child: CurvedNavigationBar(
+          index: index,
+          items: items,
+          height: 60,
+          animationDuration: Duration(milliseconds: 200),
+          backgroundColor: Colors.transparent,
+          buttonBackgroundColor: Colors.pink,
+          color: Colors.black,
+          onTap: (index) => setState(() {
+            this.index = index;
+          }),
         ),
       ),
     );

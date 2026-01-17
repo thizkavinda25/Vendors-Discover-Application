@@ -6,6 +6,7 @@ import 'package:vendors_discover/models/user_models.dart';
 import 'package:vendors_discover/screens/home_scree.dart';
 import 'package:vendors_discover/utils/custom_dialogs.dart';
 import 'package:vendors_discover/utils/navigator_manage.dart';
+import 'package:vendors_discover/widgets/bottom_nav_bar.dart';
 
 class AuthStateProvider extends ChangeNotifier {
   final TextEditingController _nameController = TextEditingController();
@@ -95,7 +96,7 @@ class AuthStateProvider extends ChangeNotifier {
       _emailController.clear();
       _passwordController.clear();
       if (user != null) {
-        NavigatorManage.goPushReplace(context, const HomeScree());
+        NavigatorManage.goPushReplace(context, const BottomNavBar());
       }
 
       EasyLoading.dismiss();
