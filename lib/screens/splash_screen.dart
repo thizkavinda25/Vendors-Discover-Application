@@ -4,8 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:vendors_discover/screens/auth_screen.dart';
-import 'package:vendors_discover/screens/home_scree.dart';
 import 'package:vendors_discover/utils/navigator_manage.dart';
+import 'package:vendors_discover/widgets/bottom_nav_bar.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
       });
     } else {
       Timer(const Duration(seconds: 0), () {
-        NavigatorManage.goPushReplace(context, const HomeScree());
+        NavigatorManage.goPushReplace(context, const BottomNavBar());
       });
     }
   }

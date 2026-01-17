@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vendors_discover/controllers/auth_controller.dart';
 import 'package:vendors_discover/widgets/custom_card.dart';
 
 import '../providers/vendor_state_provider.dart';
@@ -24,10 +25,21 @@ class _HomeScreeState extends State<HomeScree> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: _bottomNavBar(),
       backgroundColor: Colors.white,
       drawer: Drawer(),
+
       appBar: AppBar(
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: IconButton(
+              onPressed: () {
+                AuthController().signOut(context);
+              },
+              icon: Icon(Icons.notifications_none),
+            ),
+          ),
+        ],
         iconTheme: IconThemeData(size: 30),
         backgroundColor: Colors.white,
         centerTitle: true,
@@ -103,23 +115,4 @@ class _HomeScreeState extends State<HomeScree> {
       ),
     );
   }
-}
-
-Widget _bottomNavBar() {
-  return BottomAppBar(
-    color: Colors.white,
-    elevation: 8,
-    child: Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Icon(Icons.home_filled, size: 30, color: Colors.pink),
-          Icon(Icons.search, size: 30, color: Colors.grey),
-          Icon(Icons.favorite_border, size: 30, color: Colors.grey),
-          Icon(Icons.person_outline, size: 30, color: Colors.grey),
-        ],
-      ),
-    ),
-  );
 }
