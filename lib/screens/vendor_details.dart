@@ -102,24 +102,34 @@ Widget _topRowButtons(BuildContext context, VendorModel vendor) {
               icon: Icon(Icons.arrow_back, color: Colors.white),
             ),
           ),
-
-          CircleAvatar(
-            backgroundColor: Colors.black.withOpacity(0.5),
-            child: IconButton(
-              icon: Icon(Icons.favorite_border, color: Colors.white),
-              onPressed: () {
-                final data = <String, dynamic>{
-                  'profileImg': vendor.imageUrl,
-                  'name': vendor.name,
-                  'category': vendor.categoryName,
-                };
-                context.read<UserStateProvider>().addToFavorite(data);
-                CustomDialogs.showSuccessSnackBar(
-                  context,
-                  'Added to Favorites',
-                );
-              },
-            ),
+          Consumer<UserStateProvider>(
+            builder: (context, userProvider, child) {
+              bool isFavorite = userProvider.isFavorite(vendor.id);
+              return CircleAvatar(
+                backgroundColor: Colors.black.withOpacity(0.5),
+                child: IconButton(
+                  icon: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_border,
+                    color: isFavorite ? Colors.red : Colors.white,
+                  ),
+                  onPressed: () async {
+                    if (isFavorite) {
+                      await userProvider.removeFavorite(vendor.id);
+                      CustomDialogs.showErrorSnackBar(
+                        context,
+                        'Remove From Favorites',
+                      );
+                    } else {
+                      await userProvider.addFavorite(vendor.id);
+                      CustomDialogs.showSuccessSnackBar(
+                        context,
+                        'Added To Favorites',
+                      );
+                    }
+                  },
+                ),
+              );
+            },
           ),
         ],
       ),
